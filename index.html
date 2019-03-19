@@ -262,6 +262,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/Install-and-Run-Redis-on-CentOS-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Noel Tung">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丑斋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/19/Install-and-Run-Redis-on-CentOS-7/" itemprop="url">Install and Run Redis on CentOS 7</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T14:44:33+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="HOW-TO-INSTALL-REDIS-ON-CENTOS"><a href="#HOW-TO-INSTALL-REDIS-ON-CENTOS" class="headerlink" title="HOW TO INSTALL REDIS ON CENTOS"></a>HOW TO INSTALL REDIS ON CENTOS</h1><p>As the title tolds, this is an installion guide that logged my way to get and run redis on my linux server.</p>
+<p><em>requirements:</em> <br></p>
+<ul>
+<li>Centos 7<br></li>
+<li>Redis 5.0.3 <a href="http://download.redis.io/releases/redis-5.0.4.tar.gz" target="_blank" rel="noopener">GET ME :) ↓</a></li>
+</ul>
+<p>After I get Redis, unzip the file and enter it:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">$ /usr/<span class="built_in">local</span>/src/</span><br><span class="line">$ wget http://download.redis.io/releases/redis-5.0.4.tar.gz</span><br><span class="line">$ tar -zxvf redis-5.0.4.tar.gz</span><br><span class="line">$ ls</span><br><span class="line">$ redis-5.0.4</span><br><span class="line">$ <span class="built_in">cd</span> redis-5.0.4</span><br><span class="line">$ make</span><br><span class="line">$ <span class="comment">#After use command 'make' the binaries that are now compiled are available in the src directory. Then tou can run Redis with:</span></span><br><span class="line">$ src/redis-server</span><br></pre></td></tr></table></figure></p>
+<p>Then you will find it out-puts many infos in the terminal.<br><img src="/2019/03/19/Install-and-Run-Redis-on-CentOS-7/redisstart.png" title="Out puts after redis fired up"><br>Let’s do a test:(you should open an another terminal) <br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pwd </span><br><span class="line">$ /usr/local/src/redis-5.0.4</span><br><span class="line">$ src/redis-cli</span><br><span class="line">127.0.0.1:6379&gt;_</span><br></pre></td></tr></table></figure></p>
+<p>Congratulations！You’ve got the server suns a Redis 23333333<br></p>
+<h1 id="There-are-something-we-can-go-on-to-make-some-configurations"><a href="#There-are-something-we-can-go-on-to-make-some-configurations" class="headerlink" title=" There are something we can go on to make some configurations:"></a> There are something we can go on to make some configurations:<br></h1><p>Back to the redis-5.0.4 folder and edit the <code>redis.conf</code></p>
+<ul>
+<li><p>make redis runs in the background:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes <span class="comment"># It was configured as no after you just installed the redis, so change it to yes</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>set a password to authenticate each user who want to access datas: for example I set my password to yourpassword. Don’t forget to uncomment this line.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass yourpassword</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Notice"><a href="#Notice" class="headerlink" title="Notice:"></a>Notice:</h1><ul>
+<li>I didn’t run <code>make</code> command after I unzip what I downloaded so that I couldn’t just find redis-server and redis-cli in <code>redis-5.0.4/src</code>. I can run redis-server command in the centos but when I use the way :<code>redis-server /usr/local/src/redis-5.0.4/redis.conf</code>, it told me this:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*** FATAL CONFIG FILE ERROR ***</span><br><span class="line">Reading the configuration file, at line 309</span><br><span class="line">&gt;&gt;&gt; <span class="string">'replica-serve-stale-data yes'</span></span><br><span class="line">Bad directive or wrong number of arguments</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Finally I figured out that <code>redis-server</code> is a system command not what I installed and there are no <code>redis-server</code> and <code>redis-cli</code> in <code>redis-5.0.4/src</code> at all! This issue confused me two days, what a nauseating.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/flask-入门一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -581,7 +723,7 @@ Error: Could not import &quot;code.app&quot;.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -594,7 +736,7 @@ Error: Could not import &quot;code.app&quot;.
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

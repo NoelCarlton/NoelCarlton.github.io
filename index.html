@@ -262,6 +262,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/Packaging-Flask/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Noel Tung">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丑斋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/17/Packaging-Flask/" itemprop="url">Packaging Flask</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-17T17:48:59+08:00">
+                2019-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/manual/" itemprop="url" rel="index">
+                    <span itemprop="name">manual</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Packaging-Flask-or-Python-Project"><a href="#Packaging-Flask-or-Python-Project" class="headerlink" title="Packaging Flask or Python Project"></a>Packaging Flask or Python Project</h1><p>There are some advantages if you publish and install a project in one packet, which you won’t concern about the dependencies and environment settings, all you need to do is just typing a command in the terminal or double clicking the installer.</p>
+<p>Packaging Python Projects you can see <a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank" rel="noopener">here</a>, and you will know how to create package. And you should to create a <a href="https://pypi.org" target="_blank" rel="noopener">pypi.org</a> account. If you use this way, people can install your project like <code>pip install package-name</code>.</p>
+<p>Or, just for your personal reason, all you need to do is following steps below. This method is based on <a href="http://flask.pocoo.org/docs/1.0/tutorial/install/" target="_blank" rel="noopener">Packaging Flask project</a>.</p>
+<h2 id="Prepare-installer"><a href="#Prepare-installer" class="headerlink" title="Prepare installer"></a>Prepare installer</h2><p>In root folder of project, create somethings like these: <code>setup.py</code>, <code>MANIFEST.in</code> and <code>project files</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#setup.py</span></span><br><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> find_packages, setup</span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'FLASK_APP_NAME'</span>,</span><br><span class="line">    version=<span class="string">'1.0.0'</span>,</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    include_package_data=<span class="literal">True</span>,</span><br><span class="line">    zip_safe=<span class="literal">False</span>,</span><br><span class="line">    install_requires=[</span><br><span class="line">        <span class="string">'flask'</span>,</span><br><span class="line">        <span class="string">'some other requirements'</span></span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>setuptools</code> is built in python, updating it to the newest one is perfect. In <code>setup.py</code>, <code>name</code> should be the same with what you did in virtural environment: <code>export FLASK_APP=hello.py</code>, so, it could be like <code>name=&#39;hello.py&#39;</code>. <code>packages</code> tells Python what package directories (and the Python files they contain) to include. <code>find_packages()</code> finds these directories automatically so you don’t have to type them out. To include other files, such as the static and templates directories, <code>include_package_data</code> is set. Python needs another file named <code>MANIFEST.in</code> to tell what this other data is.<br><br>We can use <code>pip freeze</code> or <code>pipreqs</code> to generate <code>requirements.txt</code> to show what we need in the project. Since <code>pip freeze</code> will output all the requires in the OS environment, we’d better use    <code>pip install pipreqs</code> to install pipreqs and then just use it to generate dependences in the project. After we got pipreqs, <code>pipreqs ./</code> can write requirements to <code>requirements.txt</code> in <code>./</code> folder. This could trigger a issue:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> File <span class="string">"c:\users\devtao\appdata\local\programs\python\python36-32\lib\site-packages\pipreqs\pipreqs.py"</span>, line <span class="number">341</span>, <span class="keyword">in</span> init</span><br><span class="line">    extra_ignore_dirs=extra_ignore_dirs)</span><br><span class="line">  File <span class="string">"c:\users\devtao\appdata\local\programs\python\python36-32\lib\site-packages\pipreqs\pipreqs.py"</span>, line <span class="number">75</span>, <span class="keyword">in</span> get_all_imports</span><br><span class="line">    contents = f.read()</span><br><span class="line">UnicodeDecodeError: <span class="string">'gbk'</span> codec can<span class="string">'t decode byte 0xa6 in position 186: illegal multibyte sequence</span></span><br></pre></td></tr></table></figure></p>
+<p>Just go to <code>pipreqs.py</code> and modify encoding to ‘utf-8’ in line 75.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#MANIFEST.in</span><br><span class="line">include flaskr/schema.sql</span><br><span class="line">graft flaskr/static</span><br><span class="line">graft flaskr/templates</span><br><span class="line">global-exclude *.pyc</span><br></pre></td></tr></table></figure>
+<p>This tells Python to copy everything in the static and templates directories, and the <code>schema.sql</code> file, but to exclude all bytecode files.</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p> Copy the whole project to the work machine, and the create a virtual environment. Use <code>pip</code> to install your project in the virtual environment.<br> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -e .</span><br></pre></td></tr></table></figure></p>
+<p> This tells pip to find <code>setup.py</code> in the current directory and install it. And it outputs all the installments and steps.<br> In the new environment, do <code>export FLASK_APP=hello.py</code> and <code>export FLASK_ENV=development</code> if you need again. Type <code>flask run</code>, the project will run ~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/Install-and-Run-Redis-on-CentOS-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -303,6 +455,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/manual/" itemprop="url" rel="index">
+                    <span itemprop="name">manual</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -445,6 +619,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/manual/" itemprop="url" rel="index">
+                    <span itemprop="name">manual</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -604,6 +800,28 @@ Error: Could not import &quot;code.app&quot;.
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/manual/" itemprop="url" rel="index">
+                    <span itemprop="name">manual</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -723,12 +941,21 @@ Error: Could not import &quot;code.app&quot;.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
             
 
             

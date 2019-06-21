@@ -262,6 +262,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/How-to-Create-Flask-Project-with-Blueprint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Noel Tung">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丑斋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/21/How-to-Create-Flask-Project-with-Blueprint/" itemprop="url">How to Create Flask Project with Blueprint</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-21T16:32:59+08:00">
+                2019-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/manual/" itemprop="url" rel="index">
+                    <span itemprop="name">manual</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Before-we-set-off"><a href="#Before-we-set-off" class="headerlink" title="Before we set off"></a>Before we set off</h1><p>We can create two types of architecture based on Flask and Blueprint. One of the 2 is <strong>Functional Structure</strong> that you can organize the pieces of app by what the do. Templates are grouped together in one directory, static files in another and views in a third.<br><br>And the next one is <strong>Divisional</strong>, with the divisional structure, you organize the pieces of the application based on which part of the app they contribute to. All of the templates, views and static files for the admin panel go in one directory, and those for the user control panel go in another. Here are what they look like:<br><br><em>Here my codes are:</em> <a href="https://github.com/NoelCarlton/How-to-use-flask-with-blueprint" target="_blank" rel="noopener">How-to-use-flask-with-blueprint</a></p>
+<p><strong>Functional Structure</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">app/</span><br><span class="line">    __init__.py</span><br><span class="line">    static/</span><br><span class="line">    templates/</span><br><span class="line">        home/</span><br><span class="line">        control_panel/</span><br><span class="line">        admin/</span><br><span class="line">    views/</span><br><span class="line">        __init__.py</span><br><span class="line">        home.py</span><br><span class="line">        control_panel.py</span><br><span class="line">        admin.py</span><br><span class="line">    models.py</span><br></pre></td></tr></table></figure></p>
+<p><strong>Division</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">yourapp/</span><br><span class="line">    __init__.py</span><br><span class="line">    admin/</span><br><span class="line">        __init__.py</span><br><span class="line">        views.py</span><br><span class="line">        static/</span><br><span class="line">        templates/</span><br><span class="line">    home/</span><br><span class="line">        __init__.py</span><br><span class="line">        views.py</span><br><span class="line">        static/</span><br><span class="line">        templates/</span><br><span class="line">    control_panel/</span><br><span class="line">        __init__.py</span><br><span class="line">        views.py</span><br><span class="line">        static/</span><br><span class="line">        templates/</span><br><span class="line">    models.py</span><br></pre></td></tr></table></figure></p>
+<p>In this article I will describe <em>functional structure</em> that is similar with <em>Division</em> type which you just need to adjust a little bit of places of files from <em>Functional Structure</em>.  Finally, the layout could be this:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">projectfolder/</span><br><span class="line">|    app/</span><br><span class="line">|    |    module1/</span><br><span class="line">|    |    |    __init__.py</span><br><span class="line">|    |    |    index.py</span><br><span class="line">|    |    |    admin.py</span><br><span class="line">|    |    static/</span><br><span class="line">|    |    |     css/</span><br><span class="line">|    |    |     js/         </span><br><span class="line">|    |    templates/</span><br><span class="line">|    |    |    index/</span><br><span class="line">|    |    |    |   index.html</span><br><span class="line">|    |    |    |   ...</span><br><span class="line">|    |    |    admin/</span><br><span class="line">|    |    |    |   user.html</span><br><span class="line">|    |    |    |   ...</span><br><span class="line">|    |    __init__.py</span><br><span class="line">|    |    models.py</span><br><span class="line">|    virtualEnv/</span><br><span class="line">|    config.py</span><br><span class="line">|    database.sql</span><br><span class="line">|    requirements.txt</span><br><span class="line">|    run.py</span><br></pre></td></tr></table></figure></p>
+<p>In this frame, all our project codes lay in the app folder, and we will create our app within <code>app/__init__.py</code>. And <code>models.py</code> holds all the db models that match with database tables. If you have some other module like <code>module2</code> or <code>api</code>, just create them as modules1 does. In <code>modules1/__init__.py</code> we can do nothing but just let it empty.<br><br>We put configurations such as keys to database and debug model into the <code>config.py</code>. <code>database.sql</code> is a sql file that describes our database. The <code>run.py</code> is starter of application.</p>
+<h1 id="Create-our-app"><a href="#Create-our-app" class="headerlink" title="Create our app"></a>Create our app</h1><p>In <code>app/__init__.py</code>, we use flask to create app, and initiate our settings here.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> config</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line">app = Flask(__name__, instance_relative_config=<span class="literal">True</span>)</span><br><span class="line">app.config.from_object(config.Config)</span><br><span class="line">app.config.from_pyfile(<span class="string">'config.py'</span>) <span class="comment"># To load instance/config.py. Want to get details just google for `instance_relative_config`.</span></span><br><span class="line">db = SQLAlchemy(app)</span><br></pre></td></tr></table></figure></p>
+<p>And in the <code>run.py</code>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure></p>
+<h1 id="Develope-the-modules"><a href="#Develope-the-modules" class="headerlink" title="Develope the modules"></a>Develope the modules</h1><p>For example, we can make an entrance like <code>index.py</code>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a module: index</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, render_template</span><br><span class="line"></span><br><span class="line">index = Blueprint(<span class="string">'index'</span>, __name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@index.route('/')</span></span><br><span class="line"><span class="meta">@index.route('/index')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">indez</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index/index.html'</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Configure-models"><a href="#Configure-models" class="headerlink" title="Configure models"></a>Configure models</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="comment"># app/models.py</span></span><br><span class="line"><span class="comment"># Put database models here.</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__=<span class="string">'user'</span></span><br><span class="line">    <span class="comment"># columns</span></span><br><span class="line">    id = db.Column(db.Integer, autoincrement=<span class="literal">True</span>, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">15</span>))</span><br><span class="line">    telephone = db.Column(db.String(<span class="number">12</span>), primary_key=<span class="literal">True</span>, unique=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer, default=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="Registe-our-models-to-app"><a href="#Registe-our-models-to-app" class="headerlink" title="Registe our models to app"></a>Registe our models to app</h1><p>Add following code after <code>db = SQLAlchemy(app)</code> in the <code>app/__init__.py</code>, otherwise it will occur trouble: in the blueprint use db but before it is initiated.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .routes.admin <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .routes.index <span class="keyword">import</span> index</span><br><span class="line"></span><br><span class="line">app.register_blueprint(admin)</span><br><span class="line">app.register_blueprint(index)</span><br></pre></td></tr></table></figure></p>
+<h1 id="What-to-next"><a href="#What-to-next" class="headerlink" title="What to next"></a>What to next</h1><p><a href="https://github.com/NoelCarlton/How-to-use-flask-with-blueprint" target="_blank" rel="noopener">Run</a> the application.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/Packaging-Flask/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -941,7 +1093,7 @@ Error: Could not import &quot;code.app&quot;.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -963,7 +1115,7 @@ Error: Could not import &quot;code.app&quot;.
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

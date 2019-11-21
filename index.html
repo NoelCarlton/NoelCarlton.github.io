@@ -262,6 +262,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/21/Git-Foundamental/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Noel Tung">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丑斋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/21/Git-Foundamental/" itemprop="url">Git Foundamental</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-21T14:28:13+08:00">
+                2019-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>These steps are done under the local environment, which means I Won’t push any data to remote repository.</em></p>
+<h1 id="git-init-OR-clone"><a href="#git-init-OR-clone" class="headerlink" title="git init OR clone"></a>git init OR clone</h1><ol>
+<li>Create a new folder: <code>mkidr &#39;folder name&#39;</code>;</li>
+<li>Enter this new folder: <code>cd &#39;folder name&#39;</code>;</li>
+<li>Initialize repository: <code>git init</code>, terminal would output some words that  include ‘master’. This method will create a perfectly new repository whitout any project data but configuration files;<br><br><strong>OR</strong> we can:</li>
+<li>Get an identical repository: <code>git clone url [new folder name]</code>. After this way we get a totally same project as remote repository that located in <code>url</code>. If we add a new folder name as parameter, this project will be downloaded to it, or datas will be in the peoject name folder;</li>
+</ol>
+<h1 id="Add-commits-to-repository"><a href="#Add-commits-to-repository" class="headerlink" title="Add commits to repository"></a>Add commits to repository</h1><ol>
+<li><p>A project controlled by git, there will is conception that about three main part: Repository, Staging index and Working directory. All just modifyed and created resources are located in working directory. After excuted <code>git add</code> those resources will be staged as they are moved to staging index. Let’s make a demostration as below:<br></p>
+<img src="/2019/11/21/Git-Foundamental/git-add-to-staging-recap.gif" title="git add">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add filename [filename2] [filename3];   <span class="comment"># add filename to staging index.</span></span><br><span class="line">git add .           <span class="comment"># add all files in current working directory to staging index.</span></span><br><span class="line">git rm --cached filename    <span class="comment"># If added an unwanted file to staging index, use this.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>git commit -m &quot;some information about this commit&quot;</code>, this command moves files from staging index to repository. If there is no <code>-m</code> and additional information, git will prompt a editor that let users to add some additional information.</p>
+</li>
+<li><code>git diff</code> is used to see changes that have been made but haven’t been committed, yet.</li>
+<li><code>git log</code> is used to display all of the commits of a repository. Like this:<br><img src="/2019/11/21/Git-Foundamental/git-log-output.png" title="Git log">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline [sha]  <span class="comment"># only shows sha and message</span></span><br><span class="line">git <span class="built_in">log</span> --<span class="built_in">stat</span> [sha]     <span class="comment"># tells us which files have been changed and the count of changes</span></span><br><span class="line">git <span class="built_in">log</span> -p/--patch [sha] <span class="comment"># displays the actual changes made to a file.</span></span><br><span class="line">git show [sha]           <span class="comment"># only displays the most recent commit, only one.</span></span><br><span class="line">git <span class="built_in">log</span> --decorate       <span class="comment"># display branches, tags etc.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If provided with sha, those commands can tell the exactly one commit.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong><code>git log --oneline --decorate --graph --all</code></strong><br><br><img src="/2019/11/21/Git-Foundamental/git-log-graph-all.png" title="show graph"><br> <code>--graph</code> flag adds the bullets and lines to the leftmost part of the output.</p>
+<h1 id="Tagging-and-branching"><a href="#Tagging-and-branching" class="headerlink" title="Tagging and branching"></a>Tagging and branching</h1><ol>
+<li>If we want to add a marker on a specific commit, the <code>git tag -a tagName [sha]</code> can help us. The tag does not move around as new commits are added. Along with sha, the is tagged to a certain commit.</li>
+<li><code>git tag -d v1.0</code> deletes tag ‘v1.0’.</li>
+<li><p><code>git branch</code> shows the branches and reveals the current branch.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch branchName [sha]     <span class="comment"># creates a new branch called 'branchName' and points to sha if sha is provided, or it will point to current.</span></span><br><span class="line">git branch -d sidebar           <span class="comment"># deletes branch 'sidebar', you can't delete a branch that you're currently on. So to delete the sidebar branch, you'd have to switch to either the master branch or create and switch to a new branch.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>git checkout sidebar</code>: we created the new sidebar, no new commits will be added to it since we haven’t switched to it, yet. If we made a commit right now, that commit would be added to the master branch, not the sidebar branch. So to switch between branches, we need to use Git’s checkout command.If you provide the <code>-b</code> flag, you can create a branch and switch to it all in one command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-branch [sha]    <span class="comment"># can create a branch and switch to it all in one command.</span></span><br><span class="line">git checkout -b footer master   <span class="comment"># create new footer branch and have this footer branch start at the same location as the master branch</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Merging"><a href="#Merging" class="headerlink" title="Merging"></a>Merging</h1><ol>
+<li><p>To combine Git branches: <code>git merge &lt;name-of-branch-to-merge-in&gt;</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">When a merge happens, Git will:</span><br><span class="line"></span><br><span class="line">-- look at the branches that it&apos;s going to merge</span><br><span class="line">-- look back along the branch&apos;s history to find a single commit that both branches have in their commit history</span><br><span class="line">-- combine the lines of code that were changed on the separate branches together</span><br><span class="line">-- makes a commit to record the merge</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>merge conflict</strong>: If a merge conflict does occur, Git will try to combine as much as it can, but then it will leave special markers (e.g. <figure class="highlight plain"><figcaption><span>and ```<<<```) that tell you where (yep, the programmer!) needs to manually fix.< span></```)></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Undoing</span><br><span class="line">1. `git commit --amend`, can alter the most-recent commit.</span><br><span class="line">2. `git revert [sha]`, is used to reverse a previously made commit. It will undo the changes that were made by the provided commit, and creates a new commit to record the change (that is will generate a new hash).</span><br><span class="line">3. **Reset**: Reverting creates a new commit that reverts or undos a previous commit. Resetting, on the other hand, erases commits! `git reset &lt;reference-to-commit&gt;`.</span><br><span class="line">```bash</span><br><span class="line">It can be used to:</span><br><span class="line"></span><br><span class="line">-- move the HEAD and current branch pointer to the referenced commit</span><br><span class="line">-- erase commits</span><br><span class="line">-- move committed changes to the staging index</span><br><span class="line">-- unstage committed changes</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<p>There are special characters called “Ancestry References” that we can use to tell Git about these relative references. Those characters are:</p>
+<p><code>^</code> – indicates the parent commit<br><code>~</code> – indicates the first parent commit</p>
+<p>Here’s how we can refer to previous commits:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">the parent commit – the following indicate the parent commit of the current commit</span><br><span class="line">HEAD^</span><br><span class="line">HEAD~</span><br><span class="line">HEAD~1</span><br><span class="line"></span><br><span class="line">the grandparent commit – the following indicate the grandparent commit of the current commit</span><br><span class="line">HEAD^^</span><br><span class="line">HEAD~2</span><br><span class="line"></span><br><span class="line">the great-grandparent commit – the following indicate the great-grandparent commit of the current commit</span><br><span class="line">HEAD^^^</span><br><span class="line">HEAD~3</span><br></pre></td></tr></table></figure></p>
+<p>The main difference between the <code>^</code> and the <code>~</code> is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the <code>^</code> reference is used to indicate the first parent of the commit while <code>^2</code> indicates the second parent. The first parent is the branch you were on when you ran git merge while the second parent is the branch that was merged in.</p>
+<p>It’s easier if we look at an example. This what my git log currently shows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">* 9ec05ca (HEAD -&gt; master) Revert &quot;Set page heading to &quot;Quests &amp; Crusades&quot;&quot;</span><br><span class="line">* db7e87a Set page heading to &quot;Quests &amp; Crusades&quot;</span><br><span class="line">*   796ddb0 Merge branch &apos;heading-update&apos;</span><br><span class="line">|\  </span><br><span class="line">| * 4c9749e (heading-update) Set page heading to &quot;Crusade&quot;</span><br><span class="line">* | 0c5975a Set page heading to &quot;Quest&quot;</span><br><span class="line">|/  </span><br><span class="line">*   1a56a81 Merge branch &apos;sidebar&apos;</span><br><span class="line">|\  </span><br><span class="line">| * f69811c (sidebar) Update sidebar with favorite movie</span><br><span class="line">| * e6c65a6 Add new sidebar content</span><br><span class="line">* | e014d91 (footer) Add links to social media</span><br><span class="line">* | 209752a Improve site heading for SEO</span><br><span class="line">* | 3772ab1 Set background color for page</span><br><span class="line">|/  </span><br><span class="line">* 5bfe5e7 Add starting HTML structure</span><br><span class="line">* 6fa5f34 Add .gitignore file</span><br><span class="line">* a879849 Add header to blog</span><br><span class="line">* 94de470 Initial commit</span><br></pre></td></tr></table></figure></p>
+<p>Since <code>HEAD</code> points to the <code>9ec05ca</code> commit:<br><code>HEAD^</code> is the <code>db7e87a</code> commit<br><code>HEAD~1</code> is also the <code>db7e87a</code> commit<br><code>HEAD^^</code> is the <code>796ddb0</code> commit<br><code>HEAD~2</code> is also the <code>796ddb0</code> commit<br><code>HEAD^^^</code> is the <code>0c5975a</code> commit<br><code>HEAD~3</code> is also the <code>0c5975a</code> commit<br><code>HEAD^^^2</code> is the <code>4c9749e</code> commit (this is the grandparent’s (<code>HEAD^^</code>) second parent (<code>^2</code>))</p>
+<ol start="4">
+<li><strong>Git Reset’s Flags</strong> are <code>--mixed</code>,<code>--soft</code>,<code>--hard</code><br><br><code>git reset --mixed HEAD^</code> will take the changes made in commit and move them to the working directory.<br><code>git reset --soft HEAD^</code> will take the changes made in commit and move them directly to the Staging Index.<br><code>git reset --hard HEAD^</code> will take the changes made in commit and erases them.</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/How-to-Create-Flask-Project-with-Blueprint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1093,7 +1280,7 @@ Error: Could not import &quot;code.app&quot;.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1104,7 +1291,7 @@ Error: Could not import &quot;code.app&quot;.
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1115,7 +1302,7 @@ Error: Could not import &quot;code.app&quot;.
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
